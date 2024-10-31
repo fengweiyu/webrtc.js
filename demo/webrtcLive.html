@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+    <title>webrtc.js demo</title>
+  </head>
+
+  <body>
+    <!-- 
+    //<script src="../src/webrtc.js" type="module"></script>
+    -->
+    <center>
+      <h1><a href="https://github.com/fengweiyu/webrtc.js">webrtcLive demo</a></h1>
+      <textarea name="" id="UrlInput" cols="80" rows="3"></textarea>
+      <div class="box">
+        <button id="startButton">start</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="stopButton">stop</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="h264Button">h264</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="h265Button">h265</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="defaultButton">default</button>
+      </div>
+      <video id="videoElement" playsinline controls autoplay muted style="width: 80%;height: auto;"></video>
+    </center>
+
+    <script type="module">
+      import webrtcjs from '../src/webrtc.js';
+
+      const startButton = document.getElementById('startButton');
+      const stopButton = document.getElementById('stopButton');
+      const h264Button = document.getElementById('h264Button');
+      const h265Button = document.getElementById('h265Button');
+      const defaultButton = document.getElementById('defaultButton');
+      const UrlInput = document.getElementById('UrlInput');
+      const webrtcURL='https://yuweifeng.top:9213/test/H264G711A.flv.webrtc'; 
+      UrlInput.value = webrtcURL;  
+      startButton.addEventListener('click', setEnable);
+      stopButton.addEventListener('click', setDisable);
+      h264Button.addEventListener('click', setH264);
+      h265Button.addEventListener('click', setH265);
+      defaultButton.addEventListener('click', setDefault);
+      var videoElement = document.getElementById('videoElement');
+      var webrtcPlayer = null;
+      function setH264() 
+      {
+        UrlInput.value = webrtcURL;
+      }
+      function setH265() 
+      {
+        UrlInput.value = webrtcURL;
+      }
+      function setDefault() 
+      {
+        UrlInput.value = webrtcURL;
+      }
+      function setEnable() 
+      {
+        console.log('start webrtcPlayer');
+        webrtcPlayer = webrtcjs.createPlayer({
+              type: 'live',					//媒体类型 ,live 预览，talk 语音对讲，VideoCall 视频对讲
+              url: UrlInput.value,					//webrtc格式媒体URL
+              isLongConnect: true					//是否需要维持信令长链接
+          }, {
+              localFrameRate: 12, 		//指定本地采集视频的帧率，视频对讲才有用
+              localFrameWidth: 240, 		//指定本地采集视频的宽度，视频对讲才有用
+              localFrameHeight: 320 		//指定本地采集视频的高度，视频对讲才有用
+          });
+        webrtcPlayer.attachMediaElement(videoElement);	//将播放实例注册到节点
+        webrtcPlayer.load(); 					//加载数据流
+        webrtcPlayer.play();					//播放数据流
+      }
+      function setDisable() 
+      {
+         if (webrtcPlayer) 
+         {
+            webrtcPlayer.pause();// 暂停播放数据流
+            webrtcPlayer.destroy(); // 销毁播放实例
+            webrtcPlayer = null;
+         }
+      }
+    </script>
+  </body>
+</html>
