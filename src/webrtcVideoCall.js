@@ -368,6 +368,7 @@ class WebRtcVideoCall
 		})
 		.catch(function(error) {
 			console.log('getUserMedia audio video err',error);
+            alert('没有麦克风或摄像头，请找一个带麦克风和摄像头的pc或手机！');
 		});
 
 

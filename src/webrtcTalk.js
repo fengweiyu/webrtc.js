@@ -275,6 +275,7 @@ class WebRtcTalk
 		  })
 		.catch(function(error) {
 			console.log('getUserMedia audio err',error);
+            alert('没有麦克风，请找一个带麦克风的pc或手机！');
 		});
 
 
