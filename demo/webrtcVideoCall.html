@@ -8,6 +8,16 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta id="theme-color" name="theme-color" content="#ffffff">
     <title>webrtc.js demo</title>
+    <style>  
+      .button {  
+        width: 60px ; /* calc(33.33% - 10%) 每个按钮占据33.33%的宽度，减去margin的50% */  
+        margin-right: 1%; /* 设置右边的间隔 */  
+        display: inline-block; /* 使用 inline-block 使按钮水平排列 */  
+      }  
+      .button:last-child {  
+        margin-right: 0; /* 最后一个按钮去掉右边距 */  
+      } 
+    </style>
   </head>
 
   <body>
@@ -15,23 +25,26 @@
     <script src="../src/webrtc.js"></script>
     -->
     <center>
-      <h1><a href="https://github.com/fengweiyu/webrtc.js">webrtcVideoCall demo</a></h1>
-      <textarea name="" id="UrlInput" cols="80" rows="3"></textarea>
-      <div class="box">
-        <button id="startButton">start</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="stopButton">stop</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="h264Button">h264</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="h265Button">h265</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="defaultButton">default</button>
-      </div>
-      <br>
-      <video id="remoteVideoElement" playsinline controls autoplay muted style="width: 80%;height: auto;"></video>
-      <br>
-	    <video id="localVideoElement" playsinline controls autoplay muted style="width: 80%;height: auto;"></video>
+        <h1><a href="https://github.com/fengweiyu/webrtc.js">webrtcVideoCall demo</a></h1>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <textarea name="" id="UrlInput" cols="80" rows="3" ></textarea>
+        <br>
+        <div class="button-container">
+            <button class="button" id="startButton">start</button>
+            <button class="button" id="stopButton">stop</button>
+            <button class="button" id="h264Button">h264</button>
+            <button class="button" id="h265Button">h265</button>
+            <button class="button" id="defaultButton">default</button>
+        </div>
+        <br>
+        <video id="remoteVideoElement" playsinline controls autoplay muted style="width: 80%;height: auto;"></video>
+        <br>
+        <video id="localVideoElement" playsinline controls autoplay muted style="width: 80%;height: auto;"></video>
 
-      <br><br><a href="https://yuweifeng.top:9262/webrtc">WebRTC服务接收数据</a><br>
+        <br><br><a href="https://yuweifeng.top:9262/webrtc">WebRTC服务接收数据</a><br>
     </center>
 
+    
     <script type="module">
       import webrtcjs from '../src/webrtc.js';
 
