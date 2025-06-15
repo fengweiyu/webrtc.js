@@ -163,6 +163,11 @@ class WebRtcVideoCall
 				{
 					this.candidateSDP = 'a=' + event.candidate.candidate + '\r\n'	
 				}
+                if (!this.m_LocalSDP) 
+				{
+					console.log('localSDP:null');
+                    return;
+				}
 				this.m_iceCandidateCountOK++;// 每收到一个候选都增加计数
 				if(this.m_iceCandidateCountOK==1)
 				{
