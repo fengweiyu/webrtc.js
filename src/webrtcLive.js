@@ -219,14 +219,23 @@ class WebRtcLive
             this.m_MediaElement = null;
         }
     }
-
+    determineNatType() 
+    {  
+      // 根据收集的候选信息判断NAT类型  
+      // 1. 如果没有srflx候选，可能是对称NAT或防火墙阻止  
+      // 2. 如果srflx候选的端口与本地端口一致，可能是完全锥形NAT  
+      // 3. 如果端口不一致但IP一致，可能是地址限制锥形NAT  
+      // 4. 如果IP和端口都不一致，可能是端口限制锥形NAT或对称NAT  
+    } 
     load() 
     {
         //oPlayer=player;
         this.m_PeerConnection = new RTCPeerConnection({
             iceServers: [
                 {
-                urls: ['stun:stun.voipbuster.com:3478'] //stun:stun.oss.aliyuncs.com:3478
+                urls: ['stun:stun.voipbuster.com:3478'], //stun:stun.oss.aliyuncs.com:3478
+                urls: ['stun:stun.miwifi.com:3478']//,//多个stun地址可以估计nat类型但是不准，还是要通过p2p服务器(webrtc信令服务器)判断外网地址才行
+                //urls: ['stun:stun.chat.bilibili.com:3478']//
                 }
             ]
             });
